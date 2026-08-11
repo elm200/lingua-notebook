@@ -77,7 +77,7 @@ export function buildPrompt(language, items) {
     '',
     `重要: 各lessonの"title"・"text"、および各sentences[].textは必ず${language.promptName}で書いてください。日本語訳やローマ字表記を書いてはいけません。`,
     '一方、translation・grammar・vocab[].meaningは必ず日本語で書いてください。',
-    '出力は必ず次のJSON形式のみとし、説明文やコードブロック記号は一切付けないでください。',
+    '出力は必ず ```json ...内容... ``` の形式で、次のJSON形式のみをコードブロックで囲んで書いてください(コードブロックの前後に説明文を付けないでください)。',
     '{',
     '  "lessons": [',
     '    {',

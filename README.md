@@ -1,8 +1,11 @@
 # Lingua Notebook
 
-AIチャットサービス(ChatGPT・Claudeなど)に貼り付けるプロンプトを生成し、その回答(JSON)を貼り付けて保存する、多言語対応の語学学習ウェブアプリ。サーバー側でAI APIを呼び出さないため、ソースコードとデモサイトをそのまま公開できる(API課金・APIキー管理が一切不要)。
+AIチャットサービス(ChatGPT・Claudeなど)に貼り付けるプロンプトを生成し、その回答(JSON)を貼り付けて保存する、多言語対応の語学学習ウェブアプリ。
+
+**デモ**: https://lingua-notebook.vercel.app
 
 <img src="docs/screenshot.png" alt="Lingua Notebook スクリーンショット" width="480">
+
 
 ## 主な機能
 

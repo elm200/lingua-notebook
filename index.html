@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lingua Notebook</title>
+<meta name="description" content="AIチャットに貼り付けるプロンプトを生成して、多言語の学習テキストと解説をまとめて作る語学学習アプリ">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="app-header"></header>
+
+<main class="container layout-with-sidebar">
+  <div class="main-column">
+    <section class="card generate-flow">
+      <div>
+        <div class="card-heading">
+          <span class="step-number" aria-hidden="true">1</span>
+          <h2>プロンプトを生成してコピー</h2>
+        </div>
+        <p class="card-hint">
+          現在の学習言語(<strong id="current-language-name"></strong>)で、テーマ×形式をランダムに組み合わせた10件分のテキスト生成プロンプトを作り、クリップボードにコピーします。ChatGPTやClaudeなど、お使いのAIチャットサービスに貼り付けて実行してください。
+        </p>
+        <button id="generate-prompt-btn" type="button">プロンプトを生成してコピー</button>
+        <span id="prompt-status" class="status-line"></span>
+      </div>
+
+      <div id="prompt-section" class="hidden">
+        <label for="prompt-output">生成されたプロンプト(自動コピーに失敗した場合はここから手動でコピーしてください)</label>
+        <textarea id="prompt-output" rows="10" readonly></textarea>
+        <button id="copy-again-btn" type="button" class="ghost-btn">もう一度コピーする</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-heading">
+        <span class="step-number" aria-hidden="true">2</span>
+        <h2>AIの回答を貼り付けて保存</h2>
+      </div>
+      <p class="card-hint">AIチャットが返したJSONを、コードブロック記号ごとそのまま下に貼り付けてください。10件のテキストと解説がまとめて保存されます。</p>
+      <label for="paste-textarea">AIチャットの回答</label>
+      <textarea id="paste-textarea" rows="8" placeholder='{ "lessons": [ ... ] }'></textarea>
+      <div class="form-actions">
+        <button id="save-batch-btn" type="button">保存する</button>
+        <span id="save-status" class="status-line"></span>
+      </div>
+    </section>
+
+    <section id="saved-summary" class="card hidden">
+      <h2>保存しました</h2>
+      <div id="saved-summary-list"></div>
+      <a href="/history.html" class="sidebar-link">テキスト一覧で見る →</a>
+    </section>
+  </div>
+
+  <aside class="sidebar">
+    <section class="card word-quick-add">
+      <h3 class="recent-words-heading">単語をすばやく登録</h3>
+      <form id="word-form">
+        <label for="word-text">単語</label>
+        <input type="text" id="word-text" required autocomplete="off">
+        <label for="word-meaning">意味(任意)</label>
+        <input type="text" id="word-meaning" autocomplete="off">
+        <button type="submit">登録</button>
+        <span id="word-form-status" class="status-line"></span>
+      </form>
+      <hr class="section-divider">
+      <h3 class="recent-words-heading">最近登録した単語</h3>
+      <ul id="recent-words" class="recent-words-list"></ul>
+      <a href="/words.html" class="sidebar-link">単語帳をすべて見る →</a>
+    </section>
+  </aside>
+</main>
+
+<script type="module" src="/js/router.js"></script>
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>

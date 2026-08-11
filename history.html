@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>テキスト一覧 - Lingua Notebook</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="app-header"></header>
+
+<main class="container layout-with-sidebar">
+  <div class="main-column">
+    <section class="card search-box">
+      <label for="search-input">文字列で検索</label>
+      <div class="search-row">
+        <input type="search" id="search-input" aria-label="学習対象言語の文字列で検索" placeholder="例: hello" autocomplete="off">
+        <button type="button" id="search-button">検索</button>
+      </div>
+      <ul id="search-results" class="search-results hidden"></ul>
+    </section>
+
+    <ul id="history-list" class="history-list"></ul>
+  </div>
+
+  <aside class="sidebar">
+    <section class="card word-quick-add">
+      <h3 class="recent-words-heading">単語をすばやく登録</h3>
+      <form id="word-form">
+        <label for="word-text">単語</label>
+        <input type="text" id="word-text" required autocomplete="off">
+        <label for="word-meaning">意味(任意)</label>
+        <input type="text" id="word-meaning" autocomplete="off">
+        <button type="submit">登録</button>
+        <span id="word-form-status" class="status-line"></span>
+      </form>
+      <hr class="section-divider">
+      <h3 class="recent-words-heading">最近登録した単語</h3>
+      <ul id="recent-words" class="recent-words-list"></ul>
+      <a href="/words.html" class="sidebar-link">単語帳をすべて見る →</a>
+    </section>
+  </aside>
+</main>
+
+<script type="module" src="/js/router.js"></script>
+<script type="module" src="/js/history.js"></script>
+</body>
+</html>

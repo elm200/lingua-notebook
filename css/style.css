@@ -1,0 +1,777 @@
+/*
+  トークン設計:
+  - accent: #2b57c9 を中心とした落ち着いたコバルトブルー(汎用的な#2563ebより少し深みを持たせている)
+  - highlight: アンバー系。テーマ(青系accent)と切り口(highlight)を色で見分けられるようにする
+  - 背景・境界線はブルーに寄せたニュートラルにし、単なるグレーにしない
+*/
+:root {
+  --color-bg: #f4f7fd;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #eaf0fb;
+  --color-text: #101a30;
+  --color-text-muted: #56637d;
+  --color-accent: #2b57c9;
+  --color-accent-hover: #1f4399;
+  --color-accent-soft: #e4ecfc;
+  --color-border: #dbe4f5;
+  --color-error: #dc2626;
+  --color-highlight: #e2a63b;
+  --color-highlight-text: #3c2705;
+  --radius-card: 16px;
+  --radius-control: 10px;
+  --shadow: 0 2px 14px rgba(43, 87, 201, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0b1220;
+    --color-surface: #121b30;
+    --color-surface-sunken: #0e1626;
+    --color-text: #e7edfb;
+    --color-text-muted: #93a2c2;
+    --color-accent: #7fa8ff;
+    --color-accent-hover: #a7c2ff;
+    --color-accent-soft: #1b2a4d;
+    --color-border: #24304d;
+    --color-highlight: #f0b84a;
+    --color-highlight-text: #2a1c04;
+    --shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0b1220;
+  --color-surface: #121b30;
+  --color-surface-sunken: #0e1626;
+  --color-text: #e7edfb;
+  --color-text-muted: #93a2c2;
+  --color-accent: #7fa8ff;
+  --color-accent-hover: #a7c2ff;
+  --color-accent-soft: #1b2a4d;
+  --color-border: #24304d;
+  --color-highlight: #f0b84a;
+  --color-highlight-text: #2a1c04;
+  --shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    'Hiragino Kaku Gothic ProN',
+    'Noto Sans',
+    'Noto Sans Thai',
+    'Noto Sans SC',
+    'Noto Sans KR',
+    sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- ヘッダー ---------- */
+
+.app-header {
+  padding: 1.1rem 1.5rem 0.9rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.app-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.app-header h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--color-accent);
+}
+
+.lang-switcher select {
+  width: auto;
+  margin: 0;
+  padding: 0.4rem 2rem 0.4rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid var(--color-accent-soft);
+  background: var(--color-accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232b57c9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")
+    no-repeat right 0.6rem center / 1em;
+  color: var(--color-accent);
+  appearance: none;
+}
+
+.app-header nav {
+  display: flex;
+  gap: 1.5rem;
+  max-width: 1040px;
+  margin: 0.9rem auto 0;
+}
+
+.app-header nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid transparent;
+}
+
+.app-header nav a svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+.app-header nav a:hover {
+  color: var(--color-accent);
+}
+
+.app-header nav a[aria-current='page'] {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ---------- レイアウト ---------- */
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 3rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--color-border);
+}
+
+.card-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0 0 0.35rem;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.card-heading h2 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.card-hint {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin: 0 0 1rem;
+}
+
+/* ---------- フォーム部品 ---------- */
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+select,
+input[type='text'],
+input[type='search'],
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text);
+  font-size: 1rem;
+  font-family: inherit;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 7rem;
+  line-height: 1.6;
+}
+
+button {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-control);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+button:hover {
+  background: var(--color-accent-hover);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.secondary-btn:hover {
+  background: var(--color-surface-sunken);
+}
+
+.danger-btn {
+  background: var(--color-error);
+}
+
+.danger-btn:hover {
+  background: #b91c1c;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent-soft);
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem;
+}
+
+.ghost-btn:hover {
+  background: var(--color-accent-soft);
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- 汎用テキスト・状態 ---------- */
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 1.25rem 0;
+}
+
+.error,
+.status-line.error {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.status-line {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 2rem 0;
+}
+
+/* 学習対象言語の本文表示。タイ文字・中日韓文字はスペース区切りが無く、改行位置の判定が
+   ブラウザの辞書実装に依存する。一部のブラウザ(実機のAndroid Chrome等)は長い文字列を
+   折り返さず、min-content幅がflexカラム全体を押し広げてページが横スクロールすることがある。
+   anywhereは文字単位の改行機会を与え、min-content幅も1文字分に縮める。 */
+.lang-text {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- テキスト生成ページ ---------- */
+
+.generate-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#prompt-output {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  min-height: 12rem;
+  background: var(--color-surface-sunken);
+}
+
+.saved-summary-items {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.saved-summary-items li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-control);
+  background: var(--color-surface-sunken);
+}
+
+.saved-title {
+  font-size: 1rem;
+}
+
+.save-warning {
+  color: var(--color-highlight-text);
+  background: color-mix(in srgb, var(--color-highlight) 25%, transparent);
+  border-radius: var(--radius-control);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  margin: 0 0 0.5rem;
+}
+
+/* ---------- 履歴一覧 ---------- */
+
+.sentence-list,
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sentence-item {
+  padding: 1rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.sentence-item:first-child {
+  border-top: none;
+}
+
+.translation {
+  color: var(--color-text-muted);
+  margin: 0.35rem 0;
+}
+
+.grammar,
+.vocab {
+  margin: 0.35rem 0;
+}
+
+.history-item {
+  padding: 0;
+  overflow: hidden;
+}
+
+.collapsible {
+  overflow: hidden;
+  transition:
+    opacity 0.3s ease,
+    max-height 0.3s ease,
+    margin-bottom 0.3s ease,
+    padding-top 0.3s ease,
+    padding-bottom 0.3s ease;
+}
+
+.collapsing {
+  opacity: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  pointer-events: none;
+}
+
+.history-summary {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  text-align: left;
+  background: transparent;
+  color: var(--color-text);
+  border: none;
+  padding: 1.1rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.history-summary:hover {
+  background: var(--color-surface-sunken);
+}
+
+.history-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.history-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-badge,
+.angle-badge {
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.theme-badge {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.angle-badge {
+  background: color-mix(in srgb, var(--color-highlight) 30%, transparent);
+  color: var(--color-highlight-text);
+}
+
+.date {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.history-detail {
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.search-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.search-row input[type='search'] {
+  flex: 1;
+  /* input はフォーム部品のため flex-item の min-width:auto が「size属性由来の固有幅」になり、
+     狭い画面でその幅まで縮まずページが横スクロールすることがある。min-width:0で縮小を許可する */
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.search-results {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.search-result-item {
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.search-result-item:first-child {
+  border-top: none;
+}
+
+.search-result-item:hover {
+  background: var(--color-surface-sunken);
+}
+
+.search-result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.search-result-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.search-highlight {
+  background: var(--color-highlight);
+  color: var(--color-highlight-text);
+  border-radius: 3px;
+  padding: 0 0.15em;
+}
+
+.flash-highlight {
+  animation: flash-highlight-anim 2s ease;
+  border-radius: 6px;
+}
+
+@keyframes flash-highlight-anim {
+  0%,
+  40% {
+    background: var(--color-highlight);
+    color: var(--color-highlight-text);
+  }
+  100% {
+    background: transparent;
+    color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapsible,
+  .flash-highlight {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* ---------- 2カラムレイアウト(index/history) ---------- */
+
+.layout-with-sidebar {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 1040px;
+}
+
+.main-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .layout-with-sidebar {
+    flex-direction: column;
+  }
+
+  /* .layout-with-sidebar は align-items:flex-start のため、縦積み時に main-column が
+     親幅へストレッチされず「中身の最大幅」にサイズされる。中身が広いと main-column ごと
+     横に膨張しページが横スクロールすることがある(実機Android Chromeで確認)。
+     sidebarと同様に幅を明示して抑える */
+  .main-column {
+    width: 100%;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .app-header nav {
+    gap: 1rem;
+  }
+
+  .app-header nav a svg {
+    width: 1.4em;
+    height: 1.4em;
+  }
+
+  .app-header .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ---------- 単語クイック登録(サイドバー) ---------- */
+
+.word-quick-add form label {
+  font-size: 0.85rem;
+}
+
+.recent-words-heading {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.recent-words-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.recent-word-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+.recent-word-item:first-child {
+  border-top: none;
+}
+
+.recent-word-date {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.sidebar-link {
+  display: inline-block;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.sidebar-link:hover {
+  color: var(--color-accent-hover);
+}
+
+.vocab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.vocab-add-btn {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.05rem 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.vocab-add-btn:hover {
+  background: var(--color-surface-sunken);
+}
+
+.vocab-add-btn:disabled {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+/* ---------- 単語帳ページ ---------- */
+
+.word-form-card form {
+  max-width: 420px;
+}
+
+.word-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.word-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.word-text-link {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.word-text-link:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.word-date {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.word-actions {
+  display: flex;
+  gap: 0.5rem;
+}

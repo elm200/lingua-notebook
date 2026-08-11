@@ -1,0 +1,15 @@
+{
+  "name": "lingua-notebook",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AIチャットに貼り付けるプロンプトを生成して多言語の学習テキストを作る語学学習ウェブアプリ",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^5.6.0"
+  }
+}

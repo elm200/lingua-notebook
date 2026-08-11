@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>単語帳 - Lingua Notebook</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="app-header"></header>
+
+<main class="container">
+  <section class="card word-form-card">
+    <form id="word-form">
+      <input type="hidden" id="word-id">
+      <label for="word-text">単語</label>
+      <input type="text" id="word-text" required autocomplete="off">
+      <label for="word-meaning">意味(任意)</label>
+      <input type="text" id="word-meaning" autocomplete="off">
+      <div class="form-actions">
+        <button type="submit" id="form-submit">登録</button>
+        <button type="button" id="form-cancel" class="secondary-btn hidden">キャンセル</button>
+        <span id="form-status" class="status-line"></span>
+      </div>
+    </form>
+  </section>
+
+  <ul id="word-list" class="word-list"></ul>
+</main>
+
+<script type="module" src="/js/router.js"></script>
+<script type="module" src="/js/words.js"></script>
+</body>
+</html>

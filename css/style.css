@@ -272,8 +272,10 @@ button,
 
 button:hover,
 .btn:hover {
+  /* colorはここでは指定しない: button/.btnの基本規則が常時color:#fffを与えているため
+     不要な上重複させると、.secondary-btnや.history-summaryのように色を上書きしている
+     要素側のcolor指定より詳細度で勝ってしまい、ホバー時だけ文字色が白に戻る事故になる */
   background: var(--color-accent-hover);
-  color: #fff;
 }
 
 button:disabled {

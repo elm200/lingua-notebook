@@ -60,9 +60,11 @@ export function init() {
 
     for (const word of words) {
       const hasMeaning = word.meaning.trim() !== '';
+      // data-tooltipはCSSの::afterでカスタムツールチップとして表示する(js/words.jsではなくcss/style.css側の
+      // .word-meaning-btn[data-tooltip]:hover::after を参照)。titleに頼るとOS標準の表示になり遅延も出るため使わない
       const meaningBtnAttrs = hasMeaning
-        ? `title="${escapeHtml(word.meaning)}"`
-        : 'disabled title="意味は登録されていません"';
+        ? `data-tooltip="${escapeHtml(word.meaning)}" aria-label="意味: ${escapeHtml(word.meaning)}"`
+        : 'disabled aria-label="意味は登録されていません"';
 
       const li = document.createElement('li');
       li.className = 'word-item card';

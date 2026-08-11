@@ -575,7 +575,9 @@ button:disabled {
 @media (prefers-reduced-motion: reduce) {
   .collapsible,
   .flash-highlight,
-  #generate-prompt-btn.pop {
+  #generate-prompt-btn.pop,
+  .word-meaning-btn[data-tooltip]:hover::after,
+  .word-meaning-btn[data-tooltip]:focus-visible::after {
     transition: none;
     animation: none;
   }
@@ -764,4 +766,47 @@ button:disabled {
 .word-actions {
   display: flex;
   gap: 0.5rem;
+}
+
+/* 「意味」ボタンのカスタムツールチップ。title属性(OS標準)はブラウザ実装依存の表示遅延が
+   あるため使わず、data-tooltip属性の値をCSSの::afterで即座に描画する。
+   背景・文字色はテーマの反転(--color-text/--color-bg)を使い、light/dark両方で
+   常に「濃い地に明るい文字」または「明るい地に濃い文字」の読みやすい組み合わせになる */
+.word-meaning-btn {
+  position: relative;
+}
+
+.word-meaning-btn[data-tooltip]:hover::after,
+.word-meaning-btn[data-tooltip]:focus-visible::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+  max-width: 14rem;
+  width: max-content;
+  text-align: center;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  z-index: 5;
+  animation: tooltip-fade-in 0.12s ease;
+}
+
+@keyframes tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 4px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }

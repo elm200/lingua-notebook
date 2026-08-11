@@ -255,9 +255,12 @@ textarea {
   line-height: 1.6;
 }
 
-button {
+button,
+.btn {
+  display: inline-block;
   background: var(--color-accent);
   color: #fff;
+  text-decoration: none;
   border: none;
   border-radius: var(--radius-control);
   padding: 0.65rem 1.25rem;
@@ -267,8 +270,10 @@ button {
   transition: background 0.15s ease;
 }
 
-button:hover {
+button:hover,
+.btn:hover {
   background: var(--color-accent-hover);
+  color: #fff;
 }
 
 button:disabled {
@@ -292,22 +297,6 @@ button:disabled {
 
 .danger-btn:hover {
   background: #b91c1c;
-}
-
-.ghost-btn {
-  display: inline-block;
-  background: transparent;
-  color: var(--color-accent);
-  text-decoration: none;
-  font-weight: 600;
-  border: 1px solid var(--color-accent-soft);
-  border-radius: var(--radius-control);
-  font-size: 0.9rem;
-  padding: 0.45rem 0.9rem;
-}
-
-.ghost-btn:hover {
-  background: var(--color-accent-soft);
 }
 
 .form-actions {

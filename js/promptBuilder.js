@@ -64,7 +64,7 @@ export function pickRandomBatch(themes, angles, count = BATCH_SIZE) {
 }
 
 /**
- * 通常のAIチャットサービス(ChatGPT/Claude等)にそのまま貼り付けられるプロンプトを組み立てる。
+ * 通常のAIチャットサービス(ChatGPT/Gemini等)にそのまま貼り付けられるプロンプトを組み立てる。
  * @param {Language} language
  * @param {BatchItem[]} items
  * @returns {string}

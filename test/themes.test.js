@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { THEMES } from '../js/themes.js';
-import { ANGLES } from '../js/angles.js';
+import { THEMES } from '../public/js/themes.js';
+import { ANGLES } from '../public/js/angles.js';
 
 test('THEMES: 約100件、重複なし', () => {
   assert.ok(THEMES.length >= 90, `THEMES件数が少なすぎる: ${THEMES.length}`);

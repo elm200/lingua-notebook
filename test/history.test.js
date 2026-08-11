@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolveViewMode } from '../js/history.js';
+import { resolveViewMode } from '../public/js/history.js';
 
 test('resolveViewMode: 検索欄が空ならbrowse', () => {
   assert.equal(resolveViewMode('', null), 'browse');

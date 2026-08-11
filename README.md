@@ -19,7 +19,7 @@ AIチャットサービス(ChatGPT・Geminiなど)に貼り付けるプロンプ
 
 ## 技術スタック
 
-- フレームワークなし: ルートに素のHTML/CSS/バニラJS、というシンプルな静的サイト構成(サーバー側API・DBは一切なし)
+- フレームワークなし: `public/`に素のHTML/CSS/バニラJS、というシンプルな静的サイト構成(サーバー側API・DBは一切なし)
 - ランタイム依存ライブラリなし
 - `.js` + JSDoc(TypeScriptは未使用、`tsconfig.json` の `checkJs` で型チェック)
 - テストは `node:test` のみ
@@ -37,12 +37,12 @@ AIチャットサービス(ChatGPT・Geminiなど)に貼り付けるプロンプ
 npm install
 ```
 
-ローカルではただの静的サイトなので、任意の静的サーバーで確認できる。例:
+ローカルではただの静的サイトなので、`public/`ディレクトリを任意の静的サーバーで確認できる。例:
 
 ```bash
-npx serve .
+npx serve public
 # または
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory public
 ```
 
 Vercelにリンクしていれば `vercel dev` でも起動できる(API Functionsは無いため実質的に静的配信のみ)。
@@ -56,7 +56,7 @@ npm run typecheck # tsc --noEmit
 
 ## デプロイ
 
-APIキーや環境変数を一切必要としない静的サイトなので、Vercelに `vercel deploy` するだけでよい(Build Command・Output Directoryの設定も不要)。
+APIキーや環境変数を一切必要としない静的サイトなので、Vercelに `vercel deploy` するだけでよい。実際に配信されるのは `public/` ディレクトリのみで(`vercel.json` の `outputDirectory` で指定)、テストコードや設定ファイルなど非配信のファイルは `.vercelignore` でアップロード対象からも除外している。
 
 ## 使い方
 
@@ -75,7 +75,7 @@ APIキーや環境変数を一切必要としない静的サイトなので、Ve
 - 出力はコードブロックや説明文を含まないJSON形式のみ
 - 語句解説(vocab)は「対象言語の単語をそのまま意味欄に書く」ことを禁止し、文法解説は単語の逐語訳ではなくパターン→意味→用法を説明させる
 
-貼り付けられたJSONの形式(`lessons`配列、または配列そのもの)が想定と異なる場合や、依頼した10件と件数が食い違う場合はエラー・警告として画面に表示される(`js/promptBuilder.js`)。
+貼り付けられたJSONの形式(`lessons`配列、または配列そのもの)が想定と異なる場合や、依頼した10件と件数が食い違う場合はエラー・警告として画面に表示される(`public/js/promptBuilder.js`)。
 
 ## License
 

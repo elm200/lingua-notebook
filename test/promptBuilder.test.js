@@ -6,9 +6,9 @@ import {
   extractJson,
   parseBatchResponse,
   pickRandomBatch,
-} from '../js/promptBuilder.js';
-import { THEMES } from '../js/themes.js';
-import { ANGLES } from '../js/angles.js';
+} from '../public/js/promptBuilder.js';
+import { THEMES } from '../public/js/themes.js';
+import { ANGLES } from '../public/js/angles.js';
 
 const LANG = { code: 'en', label: '英語', promptName: '英語 (English)' };
 

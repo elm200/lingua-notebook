@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { getHeaderConfig } from '../js/header.js';
+import { getHeaderConfig } from '../public/js/header.js';
 
 test('getHeaderConfig: 未知のパスは先頭ページ(テキスト生成)を現在地扱いにする', () => {
   const config = getHeaderConfig('/unknown.html');

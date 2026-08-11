@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { deleteHistoryEntry, listHistory, saveHistoryEntries } from '../js/historyStore.js';
+import { deleteHistoryEntry, listHistory, saveHistoryEntries } from '../public/js/historyStore.js';
 import { FakeStorage } from './helpers/fakeStorage.js';
 
 const LESSON = {

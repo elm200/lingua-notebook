@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { escapeHtml, formatVocab, highlightMatches, searchSentences } from '../js/searchHighlight.js';
+import { escapeHtml, formatVocab, highlightMatches, searchSentences } from '../public/js/searchHighlight.js';
 
 test('escapeHtml: HTML特殊文字をエスケープする', () => {
   assert.equal(escapeHtml('<b>a & "b" \'c\'</b>'), '&lt;b&gt;a &amp; &quot;b&quot; &#39;c&#39;&lt;/b&gt;');

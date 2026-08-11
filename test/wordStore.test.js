@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { deleteWord, listWords, upsertWord } from '../js/wordStore.js';
+import { deleteWord, listWords, upsertWord } from '../public/js/wordStore.js';
 import { FakeStorage } from './helpers/fakeStorage.js';
 
 test('upsertWord: 新規登録できる', () => {

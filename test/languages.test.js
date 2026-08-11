@@ -7,7 +7,7 @@ import {
   isValidLanguageCode,
   LANGUAGES,
   setCurrentLanguageCode,
-} from '../js/languages.js';
+} from '../public/js/languages.js';
 import { FakeStorage } from './helpers/fakeStorage.js';
 
 test('LANGUAGES: 10言語(日本人に人気の指定6言語+4言語)を含む', () => {

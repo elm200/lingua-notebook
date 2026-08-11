@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isInterceptableLink } from '../js/routerLink.js';
+import { isInterceptableLink } from '../public/js/routerLink.js';
 
 const ORIGIN = 'https://example.com';
 

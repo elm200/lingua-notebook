@@ -106,7 +106,7 @@ a {
 /* ---------- ヘッダー ---------- */
 
 .app-header {
-  padding: 1.1rem 1.5rem 0.9rem;
+  padding: 0.9rem 1.5rem 0.7rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
 }
@@ -146,7 +146,7 @@ a {
   display: flex;
   gap: 1.5rem;
   max-width: 1040px;
-  margin: 0.9rem auto 0;
+  margin: 0.6rem auto 0;
 }
 
 .app-header nav a {
@@ -181,7 +181,7 @@ a {
 .container {
   max-width: 720px;
   margin: 0 auto;
-  padding: 1.75rem 1.5rem 3rem;
+  padding: 1.25rem 1.5rem 1.75rem;
 }
 
 .card {
@@ -625,7 +625,7 @@ button:disabled {
 
 @media (max-width: 480px) {
   .app-header {
-    padding: 1rem 1rem 0.75rem;
+    padding: 0.75rem 1rem 0.6rem;
   }
 
   .app-header nav {

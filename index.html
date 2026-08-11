@@ -30,8 +30,7 @@
         <h2>AIの回答を貼り付けて保存</h2>
       </div>
       <p class="card-hint">AIチャットが返したJSONを、コードブロック記号ごとそのまま下に貼り付けてください。10件のテキストと解説がまとめて保存されます。</p>
-      <label for="paste-textarea">AIチャットの回答</label>
-      <textarea id="paste-textarea" rows="3" placeholder='{ "lessons": [ ... ] }'></textarea>
+      <textarea id="paste-textarea" rows="3" placeholder='{ "lessons": [ ... ] }' aria-label="AIチャットの回答"></textarea>
       <div class="form-actions">
         <button id="save-batch-btn" type="button">保存する</button>
         <span id="save-status" class="status-line"></span>

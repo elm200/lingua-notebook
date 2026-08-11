@@ -31,18 +31,12 @@
       </div>
       <p class="card-hint">AIチャットが返したJSONを、コードブロック記号ごとそのまま下に貼り付けてください。10件のテキストと解説がまとめて保存されます。</p>
       <label for="paste-textarea">AIチャットの回答</label>
-      <textarea id="paste-textarea" rows="8" placeholder='{ "lessons": [ ... ] }'></textarea>
+      <textarea id="paste-textarea" rows="5" placeholder='{ "lessons": [ ... ] }'></textarea>
       <div class="form-actions">
         <button id="save-batch-btn" type="button">保存する</button>
+        <a href="/history.html" class="ghost-btn">テキスト一覧を見る →</a>
         <span id="save-status" class="status-line"></span>
       </div>
-    </section>
-
-    <section id="saved-summary" class="card hidden">
-      <h2>保存しました</h2>
-      <div id="saved-summary-list"></div>
-      <p class="card-hint">保存した10件は「テキスト一覧」から読んだり検索したりできます。</p>
-      <a href="/history.html" class="cta-link">テキスト一覧を見る →</a>
     </section>
   </div>
 

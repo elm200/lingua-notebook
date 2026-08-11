@@ -5,11 +5,9 @@ import { BATCH_SIZE, buildPrompt, parseBatchResponse, pickRandomBatch } from './
 import { readJson, removeJson, writeJson } from './db.js';
 import { saveHistoryEntries } from './historyStore.js';
 import { initWordQuickAdd } from './wordQuickAdd.js';
-import { escapeHtml } from './searchHighlight.js';
 
 /**
  * @typedef {import('./promptBuilder.js').BatchItem} BatchItem
- * @typedef {import('./historyStore.js').HistoryEntry} HistoryEntry
  */
 
 const PENDING_BATCH_KEY_PREFIX = 'pendingBatch:';
@@ -30,8 +28,6 @@ export function init() {
   const pasteTextareaEl = /** @type {HTMLTextAreaElement} */ (document.getElementById('paste-textarea'));
   const saveBatchBtn = /** @type {HTMLButtonElement} */ (document.getElementById('save-batch-btn'));
   const saveStatusEl = /** @type {HTMLElement} */ (document.getElementById('save-status'));
-  const savedSummarySection = /** @type {HTMLElement} */ (document.getElementById('saved-summary'));
-  const savedSummaryListEl = /** @type {HTMLElement} */ (document.getElementById('saved-summary-list'));
 
   const wordFormEl = /** @type {HTMLFormElement} */ (document.getElementById('word-form'));
   const wordTextInput = /** @type {HTMLInputElement} */ (document.getElementById('word-text'));
@@ -97,31 +93,8 @@ export function init() {
     const prompt = buildPrompt(lang, items);
 
     writeJson(PENDING_BATCH_KEY_PREFIX + lang.code, { items, createdAt: Date.now() });
-    savedSummarySection.classList.add('hidden');
 
     copyToClipboard(prompt);
-  }
-
-  /**
-   * @param {HistoryEntry[]} saved
-   * @param {string[]} warnings
-   */
-  function renderSavedSummary(saved, warnings) {
-    savedSummarySection.classList.remove('hidden');
-    const warningHtml = warnings.length
-      ? `<p class="save-warning">${warnings.map(escapeHtml).join('<br>')}</p>`
-      : '';
-    const itemsHtml = saved
-      .map(
-        (e) => `
-      <li>
-        <span class="theme-badge">${escapeHtml(e.theme)}</span>
-        <span class="angle-badge">${escapeHtml(e.angle)}</span>
-        <span class="saved-title lang-text">${escapeHtml(e.title)}</span>
-      </li>`,
-      )
-      .join('');
-    savedSummaryListEl.innerHTML = warningHtml + `<ul class="saved-summary-items">${itemsHtml}</ul>`;
   }
 
   function handleSaveBatch() {
@@ -137,8 +110,8 @@ export function init() {
       const saved = saveHistoryEntries(lang.code, entries);
       removeJson(PENDING_BATCH_KEY_PREFIX + lang.code);
       pasteTextareaEl.value = '';
-      renderSavedSummary(saved, warnings);
-      saveStatusEl.textContent = `${saved.length}件を保存しました。`;
+      const message = `${saved.length}件を保存しました。`;
+      saveStatusEl.textContent = warnings.length ? `${message} ${warnings.join(' ')}` : message;
     } catch (err) {
       saveStatusEl.textContent = err instanceof Error ? err.message : String(err);
       saveStatusEl.classList.add('error');

@@ -59,12 +59,18 @@ export function init() {
     }
 
     for (const word of words) {
+      const hasMeaning = word.meaning.trim() !== '';
+      const meaningBtnAttrs = hasMeaning
+        ? `title="${escapeHtml(word.meaning)}"`
+        : 'disabled title="意味は登録されていません"';
+
       const li = document.createElement('li');
       li.className = 'word-item card';
       li.innerHTML = `
         <a class="word-text-link lang-text" href="/history.html?q=${encodeURIComponent(word.text)}">${escapeHtml(word.text)}</a>
         <span class="word-date">${formatDate(word.createdAt)}</span>
         <span class="word-actions">
+          <button type="button" class="secondary-btn word-meaning-btn" ${meaningBtnAttrs}>意味</button>
           <button type="button" class="secondary-btn word-edit-btn">編集</button>
           <button type="button" class="secondary-btn word-delete-btn">削除</button>
         </span>

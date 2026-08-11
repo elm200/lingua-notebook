@@ -25,10 +25,7 @@ function readPendingBatch(lang) {
 export function init() {
   const langNameEl = /** @type {HTMLElement} */ (document.getElementById('current-language-name'));
   const generateBtn = /** @type {HTMLButtonElement} */ (document.getElementById('generate-prompt-btn'));
-  const promptStatusEl = /** @type {HTMLElement} */ (document.getElementById('prompt-status'));
-  const promptSection = /** @type {HTMLElement} */ (document.getElementById('prompt-section'));
-  const promptOutputEl = /** @type {HTMLTextAreaElement} */ (document.getElementById('prompt-output'));
-  const copyAgainBtn = /** @type {HTMLButtonElement} */ (document.getElementById('copy-again-btn'));
+  const generateBtnDefaultLabel = generateBtn.textContent ?? '';
 
   const pasteTextareaEl = /** @type {HTMLTextAreaElement} */ (document.getElementById('paste-textarea'));
   const saveBatchBtn = /** @type {HTMLButtonElement} */ (document.getElementById('save-batch-btn'));
@@ -56,17 +53,40 @@ export function init() {
 
   langNameEl.textContent = currentLanguage().label;
 
+  /** @type {ReturnType<typeof setTimeout> | undefined} */
+  let feedbackTimer;
+
+  /**
+   * ボタン自体の見た目を一時的に変えて、コピーが起きたこと(または失敗したこと)を伝える。
+   * 別要素にステータス文言を出す方式だと目に入りにくい・UIが増えて煩雑になるため、
+   * 操作した本人であるボタンそのものにフィードバックを返す
+   * @param {'copied' | 'error'} kind
+   * @param {string} label
+   */
+  function flashButton(kind, label) {
+    clearTimeout(feedbackTimer);
+    generateBtn.classList.remove('is-copied', 'is-error', 'pop');
+    void generateBtn.offsetWidth; // popアニメーションを再度発火させるための強制リフロー
+    generateBtn.classList.add(kind === 'copied' ? 'is-copied' : 'is-error', 'pop');
+    generateBtn.textContent = label;
+
+    feedbackTimer = setTimeout(() => {
+      generateBtn.classList.remove('is-copied', 'is-error', 'pop');
+      generateBtn.textContent = generateBtnDefaultLabel;
+    }, 1800);
+  }
+
   /**
    * @param {string} text
    */
   async function copyToClipboard(text) {
     try {
       await navigator.clipboard.writeText(text);
-      promptStatusEl.textContent = 'クリップボードにコピーしました。AIチャットサービスに貼り付けて実行してください。';
-      promptStatusEl.classList.remove('error');
+      flashButton('copied', '✓ コピーしました');
     } catch {
-      promptStatusEl.textContent = '自動コピーに失敗しました。下のテキストボックスの内容を選択してコピーしてください。';
-      promptStatusEl.classList.add('error');
+      flashButton('error', 'コピーに失敗しました');
+      // 自動コピーができない環境向けの最終手段。常設UIにはせず、失敗時だけ手動コピーの手段を残す
+      window.prompt('自動コピーに失敗しました。下のテキストを選択してコピーしてください:', text);
     }
   }
 
@@ -77,16 +97,9 @@ export function init() {
     const prompt = buildPrompt(lang, items);
 
     writeJson(PENDING_BATCH_KEY_PREFIX + lang.code, { items, createdAt: Date.now() });
-
-    promptSection.classList.remove('hidden');
-    promptOutputEl.value = prompt;
     savedSummarySection.classList.add('hidden');
 
     copyToClipboard(prompt);
-  }
-
-  function handleCopyAgain() {
-    copyToClipboard(promptOutputEl.value);
   }
 
   /**
@@ -133,6 +146,5 @@ export function init() {
   }
 
   generateBtn.addEventListener('click', handleGeneratePrompt);
-  copyAgainBtn.addEventListener('click', handleCopyAgain);
   saveBatchBtn.addEventListener('click', handleSaveBatch);
 }

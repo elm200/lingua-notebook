@@ -15,6 +15,7 @@
   --color-accent-soft: #e4ecfc;
   --color-border: #dbe4f5;
   --color-error: #dc2626;
+  --color-success: #1a9c62;
   --color-highlight: #e2a63b;
   --color-highlight-text: #3c2705;
   --radius-card: 16px;
@@ -33,6 +34,7 @@
     --color-accent-hover: #a7c2ff;
     --color-accent-soft: #1b2a4d;
     --color-border: #24304d;
+    --color-success: #2fbf82;
     --color-highlight: #f0b84a;
     --color-highlight-text: #2a1c04;
     --shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
@@ -49,6 +51,7 @@
   --color-accent-hover: #a7c2ff;
   --color-accent-soft: #1b2a4d;
   --color-border: #24304d;
+  --color-success: #2fbf82;
   --color-highlight: #f0b84a;
   --color-highlight-text: #2a1c04;
   --shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
@@ -353,17 +356,35 @@ button:disabled {
 
 /* ---------- テキスト生成ページ ---------- */
 
-.generate-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+/* 「プロンプトを生成してコピー」ボタン自体がコピー結果のフィードバックを兼ねる。
+   別要素にステータス文言を出すとUIが増えて煩雑になるため、操作対象のボタンを
+   一時的に成功色/失敗色へ変化させ、軽くポップさせることで気づきやすくする */
+#generate-prompt-btn {
+  transition: background-color 0.2s ease;
 }
 
-#prompt-output {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.85rem;
-  min-height: 12rem;
-  background: var(--color-surface-sunken);
+#generate-prompt-btn.is-copied {
+  background: var(--color-success);
+}
+
+#generate-prompt-btn.is-error {
+  background: var(--color-error);
+}
+
+#generate-prompt-btn.pop {
+  animation: btn-pop 0.4s ease;
+}
+
+@keyframes btn-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .saved-summary-items {
@@ -603,7 +624,8 @@ button:disabled {
 
 @media (prefers-reduced-motion: reduce) {
   .collapsible,
-  .flash-highlight {
+  .flash-highlight,
+  #generate-prompt-btn.pop {
     transition: none;
     animation: none;
   }

@@ -13,24 +13,15 @@
 
 <main class="container layout-with-sidebar">
   <div class="main-column">
-    <section class="card generate-flow">
-      <div>
-        <div class="card-heading">
-          <span class="step-number" aria-hidden="true">1</span>
-          <h2>プロンプトを生成してコピー</h2>
-        </div>
-        <p class="card-hint">
-          現在の学習言語(<strong id="current-language-name"></strong>)で、テーマ×形式をランダムに組み合わせた10件分のテキスト生成プロンプトを作り、クリップボードにコピーします。ChatGPTやClaudeなど、お使いのAIチャットサービスに貼り付けて実行してください。
-        </p>
-        <button id="generate-prompt-btn" type="button">プロンプトを生成してコピー</button>
-        <span id="prompt-status" class="status-line"></span>
+    <section class="card">
+      <div class="card-heading">
+        <span class="step-number" aria-hidden="true">1</span>
+        <h2>プロンプトを生成してコピー</h2>
       </div>
-
-      <div id="prompt-section" class="hidden">
-        <label for="prompt-output">生成されたプロンプト(自動コピーに失敗した場合はここから手動でコピーしてください)</label>
-        <textarea id="prompt-output" rows="10" readonly></textarea>
-        <button id="copy-again-btn" type="button" class="ghost-btn">もう一度コピーする</button>
-      </div>
+      <p class="card-hint">
+        現在の学習言語(<strong id="current-language-name"></strong>)で、テーマ×形式をランダムに組み合わせた10件分のテキスト生成プロンプトを作り、クリップボードにコピーします。ChatGPTやClaudeなど、お使いのAIチャットサービスに貼り付けて実行してください。
+      </p>
+      <button id="generate-prompt-btn" type="button">プロンプトを生成してコピー</button>
     </section>
 
     <section class="card">

@@ -306,6 +306,11 @@ button:disabled {
   flex-wrap: wrap;
 }
 
+/* このgroup内で最後の1つだけを右端に押し出す(他は左詰めのまま) */
+.form-actions-end {
+  margin-left: auto;
+}
+
 .hidden {
   display: none !important;
 }
